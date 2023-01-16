@@ -4,23 +4,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using salesWebApp.Services;
 
 namespace salesWebApp.Controllers
 {
     [Route("[controller]")]
     public class SellersController : Controller
     {
-        private readonly ILogger<SellersController> _logger;
+        private readonly SellerServices _sellerService;
 
-        public SellersController(ILogger<SellersController> logger)
+        public SellersController(SellerServices sellerService)
         {
-            _logger = logger;
+            _sellerService = sellerService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var list = await _sellerService.FindAll();
+            return View(list);
         }
     }
 }
