@@ -7,22 +7,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace salesWebApp.Services
 {
-    public class SellerService
+    public class DepartmentService
     {
         private readonly Context _context;
 
-        public SellerService(Context context)
+        public DepartmentService(Context context)
         {
             _context = context;
         }
 
-        public async Task<List<Seller>> FindAll()
+        public async Task<List<Department>> FindAll()
         {
-            return await _context.Seller.ToListAsync();
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
 
         public async Task Insert(Seller obj)
         {
+            obj.Department = _context.Department.First();
             _context.Add(obj);
             await _context.SaveChangesAsync();
         }

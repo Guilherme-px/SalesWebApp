@@ -5,17 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using salesWebApp.Models;
+using salesWebApp.Models.ViewModels;
 using salesWebApp.Services;
 
 namespace salesWebApp.Controllers
 {
     public class SellersController : Controller
     {
-        private readonly SellerServices _sellerService;
+        private readonly SellerService _sellerService;
+        private readonly DepartmentService _departmentService;
 
-        public SellersController(SellerServices sellerService)
+        public SellersController(SellerService sellerService, DepartmentService departmentService)
         {
             _sellerService = sellerService;
+            _departmentService = departmentService;
         }
 
         public async Task<IActionResult> Index()
@@ -24,9 +27,11 @@ namespace salesWebApp.Controllers
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var departments = await _departmentService.FindAll();
+            var viewModel = new SellerFormViewModel { Departments = (ICollection<Department>)departments };
+            return View(viewModel);
         }
 
         [HttpPost]
