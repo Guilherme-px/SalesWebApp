@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using salesWebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using salesWebApp.Services.Exceptions;
 
 namespace salesWebApp.Services
 {
@@ -37,6 +38,26 @@ namespace salesWebApp.Services
             var obj = await _context.Seller.FindAsync(id);
             _context.Seller.Remove(obj!);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(Seller obj)
+        {
+            var sellerExists = await _context.Seller.AnyAsync(x => x.Id == obj.Id);
+
+            if (!sellerExists)
+            {
+                throw new NotFoundException("Id não encontrado");
+            }
+
+            try
+            {
+                _context.Update(obj);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
     }
 }
