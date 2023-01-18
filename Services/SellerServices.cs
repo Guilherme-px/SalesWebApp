@@ -26,5 +26,17 @@ namespace salesWebApp.Services
             _context.Add(obj);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Seller?> FindById(int id)
+        {
+            return await _context.Seller.FirstOrDefaultAsync(obj => obj.Id == id);
+        }
+
+        public async Task Remove(int id)
+        {
+            var obj = await _context.Seller.FindAsync(id);
+            _context.Seller.Remove(obj!);
+            await _context.SaveChangesAsync();
+        }
     }
 }
