@@ -4,9 +4,12 @@
     ViewData["Title"] = "Vendedores";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="my-4">@ViewData["Title"]</h1>
 
 <div>
+    <div class="mb-5">
+        <a asp-action="Create" class="btn btn-primary">Cadastrar</a>
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr class="table-success">
