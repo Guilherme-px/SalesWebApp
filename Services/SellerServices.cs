@@ -35,9 +35,16 @@ namespace salesWebApp.Services
 
         public async Task Remove(int id)
         {
-            var obj = await _context.Seller.FindAsync(id);
-            _context.Seller.Remove(obj!);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var obj = await _context.Seller.FindAsync(id);
+                _context.Seller.Remove(obj!);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                throw new IntegrityException("Não é possivel deletar vendedor que possui vendas!");
+            }
         }
 
         public async Task Update(Seller obj)
