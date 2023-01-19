@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Vendas";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <div class="row">
+        <div class="col-md-6">
+
+            <form asp-action="SimpleSearch" class="form-horizontal">
+                <fieldset>
+                    <legend>Busca simples</legend>
+                    <div class="form-group">
+                        <label for="minDate" class="col-lg-2" control-label>De:</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" type="date" name="minDate" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxDate" class="col-lg-2" control-label>Até:</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" type="date" name="maxDate" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="GroupSearch" class="form-horizontal">
+                <fieldset>
+                    <legend>Busca agrupada</legend>
+                    <div class="form-group">
+                        <label for="minDate" class="col-lg-2" control-label>De:</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" type="date" name="minDate" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxDate" class="col-lg-2" control-label>Até:</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" type="date" name="maxDate" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
