@@ -9,13 +9,20 @@ namespace salesWebApp.Models
     {
         public int Id { get; set; }
         [Display(Name = "Nome")]
+        // [Required(ErrorMessage = "{0} obrigatorio!")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "O nome deve ter no minimo {2} letras e no maximo {1} letras!")]
         public string? Name { get; set; }
         [Display(Name = "Email")]
+        // [Required(ErrorMessage = "{0} obrigatorio!")]
+        [EmailAddress(ErrorMessage = "Email inválido!")]
         public string? Email { get; set; }
         [Display(Name = "Data de nascimento")]
+        [Required(ErrorMessage = "{0} obrigatorio!")]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
         [Display(Name = "Salario")]
+        [Required(ErrorMessage = "{0} obrigatorio!")]
+        [Range(1000.00, 8000.00, ErrorMessage = "{0} deve ser no minimo {1} e no maximo {2}")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double BaseSalary { get; set; }
         public Department? Department { get; set; }

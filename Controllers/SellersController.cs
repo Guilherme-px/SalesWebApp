@@ -39,6 +39,13 @@ namespace salesWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Seller seller)
         {
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = (ICollection<Department>)departments };
+                return View(seller);
+            }
+
             await _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));
         }
@@ -109,6 +116,13 @@ namespace salesWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Seller seller)
         {
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = (ICollection<Department>)departments };
+                return View(seller);
+            }
+
             if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não correspondem!" });
